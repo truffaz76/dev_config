@@ -29,17 +29,23 @@ NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/unite.vim'
 " ファイルツリー表示
 NeoBundle 'scrooloose/nerdtree'
-" rails用
+NeoBundle 'jistr/vim-nerdtree-tabs'
+
+" ruby, rails用
 NeoBundle 'taichouchou2/vim-rails'
-NeoBundle 'ruby-matchit' " キーワード移動
+NeoBundle 'ujihisa/unite-rake'
+NeoBundle 'basyura/unite-rails'
+NeoBundle 'tpope/vim-endwise'
+
+" キーワード移動
+NeoBundle 'ruby-matchit'
 " インデントに色を付けて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " NERDTree ハイライト
 NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
-
 " color theme
-NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
+NeoBundle 'tomasr/molokai'
 
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
@@ -51,12 +57,31 @@ filetype plugin indent on
 
 " 行数表示
 set nu
+
+
+set background=dark
+set t_Co=256
+let g:molokai_original=1
+colorscheme molokai
+
 " tabをスペース2つに
 set tabstop=2
-" ファイル名指定の時はNERDTree非表示
+" 空白、タブ、改行の可視化
+set list
+set listchars=tab:>.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
+" インデント設定
+set shiftwidth=2
+set expandtab
+
+" ---------- NERDTree -------------------
+"  ファイル名指定の時にツリー非表示、それ以外は表示
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" 起動時にNERDTreeを表示
-autocmd vimenter * NERDTree
+:set modifiable
+:set write
+nnoremap <S-A-}> gt
+nnoremap <S-A-{> gT
+map <C-n> <plug>NERDTreeTabsToggle<CR>
+map <C-w> db
 
 NeoBundleCheck
