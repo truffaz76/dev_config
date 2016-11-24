@@ -47,6 +47,8 @@ NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'tomasr/molokai'
 
+NeoBundle 'slim-template/vim-slim'
+
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
@@ -57,7 +59,10 @@ filetype plugin indent on
 
 " 行数表示
 set nu
-
+" クリップボードON
+set clipboard=unnamed,autoselect
+"
+set ruler
 
 set background=dark
 set t_Co=256
@@ -73,15 +78,24 @@ set listchars=tab:>.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
 set shiftwidth=2
 set expandtab
 
+" 補完をON
+let g:neocomplcache_enable_at_startup = 1
+
 " ---------- NERDTree -------------------
 "  ファイル名指定の時にツリー非表示、それ以外は表示
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 :set modifiable
 :set write
+
 nnoremap <S-A-}> gt
 nnoremap <S-A-{> gT
 map <C-n> <plug>NERDTreeTabsToggle<CR>
-map <C-w> db
+noremap <S-w> db
+noremap <C-Home> gg
+noremap <C-End> G
+noremap <C-PageDown> <C-w>w
+noremap <F12> :split<CR>
+noremap <F11> :vsplit<CR>
 
 NeoBundleCheck
