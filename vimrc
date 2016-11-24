@@ -46,8 +46,10 @@ NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
 " color theme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'tomasr/molokai'
-
+" html.slim 用プラグイン
 NeoBundle 'slim-template/vim-slim'
+" タブ表示
+NeoBundle 'vim-scripts/buftabs'
 
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
@@ -80,6 +82,13 @@ set expandtab
 
 " 補完をON
 let g:neocomplcache_enable_at_startup = 1
+" ---------- Buftab -------------------
+let g:buftabs_in_statusline=1 " バッファタブをステータスラインに表示
+let g:buftabs_active_highlight_group="Visual" "現在のバッファをハイライト
+" ステータスライン
+set statusline=%=\ [%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
+" ステータスラインを常に表示
+set laststatus=2
 
 " ---------- NERDTree -------------------
 "  ファイル名指定の時にツリー非表示、それ以外は表示
