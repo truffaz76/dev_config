@@ -25,6 +25,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " 非同期処理
 NeoBundle 'Shougo/vimproc'
+" 自動保管
+NeoBundle 'Shougo/neocomplcache'
+
 " ファイルオープン用
 NeoBundle 'Shougo/unite.vim'
 " ファイルツリー表示
@@ -50,6 +53,10 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'slim-template/vim-slim'
 " タブ表示
 NeoBundle 'vim-scripts/buftabs'
+" ctrl + P
+NeoBundle "ctrlpvim/ctrlp.vim"
+" gitコマンドが使える
+NeoBundle 'tpope/vim-fugitive'
 
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
@@ -63,7 +70,7 @@ filetype plugin indent on
 set nu
 " クリップボードON
 set clipboard=unnamed,autoselect
-"
+" ルーラ設定
 set ruler
 
 set background=dark
@@ -79,12 +86,16 @@ set listchars=tab:>.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
 " インデント設定
 set shiftwidth=2
 set expandtab
+set autoindent
+set smartindent
+" バックアップファイルを作成しない
+set nobackup
 
 " 補完をON
 let g:neocomplcache_enable_at_startup = 1
 " ---------- Buftab -------------------
-let g:buftabs_in_statusline=1 " バッファタブをステータスラインに表示
-let g:buftabs_active_highlight_group="Visual" "現在のバッファをハイライト
+"let g:buftabs_in_statusline=1 " バッファタブをステータスラインに表示
+"let g:buftabs_active_highlight_group="Visual" "現在のバッファをハイライト
 " ステータスライン
 set statusline=%=\ [%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
 " ステータスラインを常に表示
@@ -106,5 +117,6 @@ noremap <C-End> G
 noremap <C-PageDown> <C-w>w
 noremap <F12> :split<CR>
 noremap <F11> :vsplit<CR>
+"vnoremap <silent> <C-p> "0p<CR>
 
 NeoBundleCheck
