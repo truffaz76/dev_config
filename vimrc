@@ -33,6 +33,7 @@ NeoBundle 'Shougo/unite.vim'
 " ファイルツリー表示
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
+NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 
 " ruby, rails用
 NeoBundle 'taichouchou2/vim-rails'
@@ -42,13 +43,13 @@ NeoBundle 'tpope/vim-endwise'
 
 " キーワード移動
 NeoBundle 'ruby-matchit'
-" インデントに色を付けて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " NERDTree ハイライト
 NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
 " color theme
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'tomasr/molokai'
+NeoBundle 'sjl/badwolf'
 " html.slim 用プラグイン
 NeoBundle 'slim-template/vim-slim'
 " タブ表示
@@ -57,7 +58,8 @@ NeoBundle 'vim-scripts/buftabs'
 NeoBundle "ctrlpvim/ctrlp.vim"
 " gitコマンドが使える
 NeoBundle 'tpope/vim-fugitive'
-
+" method jump
+"NeoBundle 'szw/vim-tags'
 " My Bundles here:
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
@@ -75,9 +77,9 @@ set ruler
 
 set background=dark
 set t_Co=256
-let g:molokai_original=1
-colorscheme molokai
-
+colorscheme badwolf
+" 文字色の色の明るさを抑える
+" highlight Normal ctermbg=none
 " tabをスペース2つに
 set tabstop=2
 " 空白、タブ、改行の可視化
@@ -90,7 +92,8 @@ set autoindent
 set smartindent
 " バックアップファイルを作成しない
 set nobackup
-
+set nowritebackup
+set tags=$HOME/ruby.tags
 " 補完をON
 let g:neocomplcache_enable_at_startup = 1
 " ---------- Buftab -------------------
@@ -100,7 +103,8 @@ let g:neocomplcache_enable_at_startup = 1
 set statusline=%=\ [%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
 " ステータスラインを常に表示
 set laststatus=2
-
+set fileformats=unix,dos,mac
+set fileencodings=utf-8,sjis
 " ---------- NERDTree -------------------
 "  ファイル名指定の時にツリー非表示、それ以外は表示
 autocmd StdinReadPre * let s:std_in=1
@@ -118,5 +122,6 @@ noremap <C-PageDown> <C-w>w
 noremap <F12> :split<CR>
 noremap <F11> :vsplit<CR>
 "vnoremap <silent> <C-p> "0p<CR>
+nnoremap ut :<C-u>Unite tab<CR>
 
 NeoBundleCheck
