@@ -32,11 +32,13 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim'
 " ファイルツリー表示
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
+"NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 
 " ruby, rails用
 NeoBundle 'taichouchou2/vim-rails'
+
+NeoBundle 'Shougo/denite.nvim'
 NeoBundle 'ujihisa/unite-rake'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'tpope/vim-endwise'
@@ -46,10 +48,6 @@ NeoBundle 'ruby-matchit'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " NERDTree ハイライト
 NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
-" color theme
-NeoBundle 'chriskempson/vim-tomorrow-theme'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'sjl/badwolf'
 " html.slim 用プラグイン
 NeoBundle 'slim-template/vim-slim'
 " タブ表示
@@ -58,6 +56,16 @@ NeoBundle 'vim-scripts/buftabs'
 NeoBundle "ctrlpvim/ctrlp.vim"
 " gitコマンドが使える
 NeoBundle 'tpope/vim-fugitive'
+" git guttar
+NeoBundle 'airblade/vim-gitgutter'
+" colorscheme
+NeoBundle 'bcicen/vim-vice'
+" undoのdiff機能
+NeoBundle 'mbbill/undotree'
+" localmethod check
+NeoBundle 'vim-syntastic/syntastic'
+" vim devicons with nerdfornt
+"NeoBundle 'ryanoasis/vim-devicons'
 " method jump
 "NeoBundle 'szw/vim-tags'
 " My Bundles here:
@@ -75,10 +83,13 @@ set clipboard=unnamed,autoselect
 " ルーラ設定
 set ruler
 
-syntax enable
+syntax on
 set background=dark
-set t_Co=256
-colorscheme badwolf
+"colorscheme badwolf
+"colorscheme molokai
+"colorscheme bluewery
+colorscheme vice
+
 " 文字色の色の明るさを抑える
 " highlight Normal ctermbg=none
 " tabをスペース2つに
@@ -101,7 +112,7 @@ let g:neocomplcache_enable_at_startup = 1
 "let g:buftabs_in_statusline=1 " バッファタブをステータスラインに表示
 "let g:buftabs_active_highlight_group="Visual" "現在のバッファをハイライト
 " ステータスライン
-set statusline=%=\ [%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
+set statusline=%=\ [%F][%{(&fenc!=''?&fenc:&enc)}/%{&ff}]\[%Y]\[%04l,%04v][%p%%]
 " ステータスラインを常に表示
 set laststatus=2
 set fileformats=unix,dos,mac
@@ -113,15 +124,46 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 :set modifiable
 :set write
 
+" ---------- ctrlp -------------------
+" キャッシュディレクトリ
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+" キャッシュを終了時に削除しない
+let g:ctrlp_clear_cache_on_exit = 0
+" 遅延再描画
+let g:ctrlp_lazy_update = 1
+" ルートパスと認識させるためのファイル
+"let g:ctrlp_root_markers = ['Gemfile', 'pom.xml', 'build.xml']
+" CtrlPのウィンドウ最大高さ
+let g:ctrlp_max_height = 20
+" 最大ファイル数の制限をなくさないと全てのファイルが検索にひっかからない
+let g:ctrlp_max_files = 0
+" 無視するディレクトリ
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor/*,*/\.git/*
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|bundle)$',
+  \ 'file': '\v\.(exe|so|dll|scss|css)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+" vim-railsのエラー解消
+let g:neocomplcache_force_overwrite_completefunc=1
+" 透過のための設定
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
+highlight SpecialKey ctermbg=NONE guibg=NONE
+highlight EndOfBuffer ctermbg=NONE guibg=NONE
+" powerline
+let g:airline_powerline_fonts = 1
 nnoremap <S-A-}> gt
 nnoremap <S-A-{> gT
-map <C-n> <plug>NERDTreeTabsToggle<CR>
+map <C-n> <plug>NERDTreeToggle<CR>
 noremap <S-w> db
 noremap <C-Home> gg
 noremap <C-End> G
 noremap <C-PageDown> <C-w>w
 noremap <F12> :split<CR>
 noremap <F11> :vsplit<CR>
+noremap <F1> :NERDTreeToggle<CR>
+noremap <F5> :UndotreeToggle<CR>
 "vnoremap <silent> <C-p> "0p<CR>
 nnoremap ut :<C-u>Unite tab<CR>
 
